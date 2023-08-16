@@ -94,9 +94,12 @@ public abstract class BaseView<E extends BaseEntity> extends Div implements Befo
       try {
         if (entity == null) {
           this.entity = factory.create();
+          binder.writeBean(entity);
+          service.add(entity);
+        } else {
+          binder.writeBean(entity);
+          service.change(entity);
         }
-        binder.writeBean(entity);
-        service.update(entity);
         clearForm();
         refreshGrid();
         Notification.show("Data updated");
